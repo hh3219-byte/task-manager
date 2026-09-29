@@ -14,7 +14,7 @@ The final version does not use an AI API. Its task interpretation and estimates 
 
 ## How to Run
 
-[Add the verified instructions for opening or running the project.]
+It is described in the website.
 
 ## AI Tool and Selected Prompts
 
