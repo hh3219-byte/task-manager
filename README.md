@@ -20,19 +20,13 @@ The final version does not use an AI API. Its task interpretation and estimates 
 
 I used Codex to help build and revise the project. It helped generate code, investigate problems, and implement changes as the design developed.
 
-“Help me build a browser-based task manager for students. Users can describe what they need to get done this week in a paragraph and select their available times. The system should estimate how long each task will take, determine priorities, and arrange the tasks in a calendar on the page. Longer tasks can be split into smaller sessions, and tasks that do not fit this week should carry over to the next week. Start with a simple working version with an English interface.”
+- **Initial request:** “Help me build a browser-based task manager for students. Users should be able to describe what they need to get done this week in a paragraph and select their available times. The system should estimate how long each task will take, determine priorities, and arrange the tasks in a calendar on the page. Longer tasks can be split into smaller sessions, and tasks that do not fit this week should carry over to the next week. Start with a simple working version with an English interface.”
 
-“use javascript as language”
+- **Interface and implementation:** “Please use JavaScript for the application logic, with HTML and CSS for the interface.”
 
-“Please use JavaScript for the application logic, with HTML and CSS for the interface.”
+- **Task entry and calendar summary:** “Allow users to enter one task at a time. Summarize each task in a short phrase in the calendar, and schedule it during their available times.”
 
-“the task manager separate the user's response in to 3 tasks without really understand what the user is describing”
-
-“It is still not reading the task correctly, use the chatgtp api for it.”
-
-“remove the api then, there are no credit. if that is the case, limit user's response in "what needs doing?".”
-
-“fix this problem, allow user to input one task at a time, and the system should summarize what the user is saying and in short phrases list in the calendar”
+- **Priority ranking:** “Rank tasks by priority so users can decide what to do first.”
 
 ## Reflection
 
