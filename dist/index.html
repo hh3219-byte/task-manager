@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f3">
+  <meta name="description" content="Turn your schoolwork and open hours into a calmer plan for the week.">
+  <title>Student Week Planner</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m6 12.5 3.7 3.7L18.5 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2.8 20 6v5.6c0 4.4-3.3 7.9-8 9.6-4.7-1.7-8-5.2-8-9.6V6l8-3.2Z" stroke="currentColor" stroke-width="1.4" opacity=".75"/></svg></span>
+      <span>weekwise<small>STUDENT PLANNER</small></span>
+    </div>
+    <div class="topnote"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg><span>A little structure, a little more breathing room.</span></div>
+  </header>
+  <main class="app">
+    <div class="page-heading">
+      <div>
+        <h1>Make room for your week.</h1>
+        <p class="subtitle">Put your schoolwork in one place, then let the week take shape.</p>
+      </div>
+      <nav class="week-nav" aria-label="Calendar week">
+        <button class="icon-button" id="previousWeek" aria-label="Previous week"><svg viewBox="0 0 24 24" fill="none"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="week-label" id="weekLabel"></div>
+        <button class="icon-button" id="nextWeek" aria-label="Next week"><svg viewBox="0 0 24 24" fill="none"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="today-button" id="thisWeek">This week</button>
+      </nav>
+    </div>
+
+    <div class="layout">
+      <aside class="left-column" aria-label="Plan your week">
+        <section class="card">
+          <div class="card-heading"><h2>What needs doing?</h2><span class="step">01 · Tasks</span></div>
+          <p class="hint">Enter one task at a time. Add each task to your list, then keep going.</p>
+          <form id="taskForm">
+            <label class="sr-only" for="taskInput" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Describe one task</label>
+            <textarea id="taskInput" maxlength="600" aria-describedby="taskInputHelp taskCharCount" placeholder="Read 6 biology readings, 20 pages each, due Thursday"></textarea>
+            <div class="microcopy"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="taskInputHelp">Add one task per entry. We’ll suggest a short calendar label and keep your full note for reference. Your plan saves in this browser.</span></div>
+            <div class="task-preview"><span>Calendar label preview</span><strong id="taskSummaryText" aria-live="polite">Your short task label will appear here.</strong></div>
+            <div id="taskCharCount" class="character-count" aria-live="polite">0 / 600</div>
+            <button class="primary-button" type="submit">Add task <span aria-hidden="true">＋</span></button>
+          </form>
+        </section>
+
+        <section class="card availability-card">
+          <div class="card-heading"><h2>When are you free?</h2><span class="step">02 · Time</span></div>
+          <p class="hint">Add open blocks. You can add more than one per day.</p>
+          <form id="availabilityForm">
+            <div class="availability-form">
+              <div class="field"><label for="availDay">Day</label><select id="availDay"><option value="0">Monday</option><option value="1" selected>Tuesday</option><option value="2">Wednesday</option><option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option><option value="6">Sunday</option></select></div>
+              <div class="field"><label for="availStart">From</label><input id="availStart" type="time" value="16:00" step="1800"></div>
+              <div class="field"><label for="availEnd">Until</label><input id="availEnd" type="time" value="18:00" step="1800"></div>
+            </div>
+            <button class="add-block" type="submit">+ Add available time</button>
+          </form>
+          <div class="availability-list" id="availabilityList" aria-live="polite"></div>
+        </section>
+
+        <section class="card task-list-card">
+          <div class="card-heading"><h2>Priority order</h2><span class="step" id="taskCountLabel">0 tasks</span></div>
+          <p class="priority-help">1 = start first · Auto rank weighs deadlines, assessments, urgency, and effort. Adjust a task’s priority to move it.</p>
+          <div class="task-list" id="taskList"><div class="empty-tasks">Add your week’s work to see a numbered “start first” list. You can correct the task wording here before it is scheduled.</div></div>
+        </section>
+      </aside>
+
+      <section class="main-column" aria-label="Weekly calendar">
+        <div class="summary-row" aria-live="polite">
+          <div class="summary-card"><span class="summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 4v3m10-3v3M4.5 9h15M6 5.5h12a1.5 1.5 0 0 1 1.5 1.5v11A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V7A1.5 1.5 0 0 1 6 5.5Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="summary-copy"><div class="summary-value" id="summaryTasks">0</div><div class="summary-label">tasks to plan</div></div></div>
+          <div class="summary-card"><span class="summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="summary-copy"><div class="summary-value" id="summaryHours">0h</div><div class="summary-label">estimated workload</div></div></div>
+          <div class="summary-card"><span class="summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.1 4L19 6.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="summary-copy"><div class="summary-value" id="summaryScheduled">0%</div><div class="summary-label">time scheduled</div></div></div>
+        </div>
+
+        <section class="calendar-card">
+          <div class="calendar-toolbar"><h2 class="calendar-title">Your week at a glance</h2><span class="timezone">Local time · 7:00 AM–10:00 PM</span></div>
+          <div class="calendar-note">Calendar sessions use short task labels. Open a task in Priority order to see your original note.</div>
+          <div class="calendar-scroll" id="calendarScroll">
+            <div class="calendar-inner">
+              <div class="calendar-head"><div></div><div class="head-days" id="calendarHead"></div></div>
+              <div class="calendar-body"><div class="time-rail" id="timeRail"></div><div class="day-tracks" id="dayTracks"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="carry-card" aria-live="polite">
+          <div class="carry-heading">
+            <div class="carry-title-wrap"><span class="carry-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h11l-2.5-2.5M17 17H6l2.5 2.5M18 7a7 7 0 0 1 1.8 4.6M6 17a7 7 0 0 1-1.8-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h2 class="carry-title">Carry over to next week</h2><p class="carry-subtitle">Anything that doesn't fit stays on your list.</p></div></div>
+            <button class="next-week-button" id="planNextWeek" hidden>Plan next week →</button>
+          </div>
+          <div id="carryItems" class="carry-items"></div>
+          <div id="carryEmpty" class="carry-empty">Your unfinished tasks will land here after you build your week.</div>
+        </section>
+      </section>
+    </div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
